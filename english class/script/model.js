@@ -38,7 +38,11 @@ function colocarDiaOcupado(id){
   let reference = "Students/" + id + '/' + ano + '/' + mes;
   firebase.database().ref(reference).once('value', (snapshot) => {
     snapshot.forEach(function (childSnapshot) {
-      diaOcupado[childSnapshot.val().dia] = 1;
+      if(childSnapshot.val().review){
+        diaOcupado[childSnapshot.val().dia] = 2;  
+      }else{
+        diaOcupado[childSnapshot.val().dia] = 1;
+      }
       quantidadeDiasOcupados += 1;
     });
     criarCalendario(id);
@@ -77,7 +81,6 @@ function getStudentsInfo(){
       studentsList[info.id] = new Student(info.name, info.id, info.newAudio);
       /*todo: 
       / 2- Fazer com que a função dia click se comporte diferente
-      /    2.1 - para que eu mande o audio de acordo com o aluno
       /    2.2 -  ao mandar o audio marcar que mandei a resposta
       / 
       */
