@@ -40,8 +40,11 @@ jQuery(document).ready(function () {
                     myRecorder.objects.recorder.exportWAV(function (blob) {
                         var url = (window.URL || window.webkitURL)
                             .createObjectURL(blob);
-
+                        if(userCurrent != null){
                          document.getElementById("savedAudio").src = url;
+                        }else{
+                            document.getElementById("teacherSavedAudio").src = url;
+                        }
                     });
                 }
                 
@@ -72,7 +75,9 @@ jQuery(document).ready(function () {
 
 function saveRecordedAudio(){
     if(diaEscolhido != null){
-        let reference = "Students/" + userCurrent.uid + '/' + ano + '/' + mes + '/' + diaEscolhido;
+        let reference = "";
+        if(userCurrent != null){
+        reference = "Students/" + userCurrent.uid + '/' + ano + '/' + mes + '/' + diaEscolhido;
         myRecorder.objects.recorder.exportWAV(function (blob) {
             var url = (window.URL || window.webkitURL)
                 .createObjectURL(blob);
@@ -84,5 +89,20 @@ function saveRecordedAudio(){
                 });
                 alert("Audio Enviado com sucesso!");
             });    
+        }else {
+        reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + diaEscolhido + 'r';
+        myRecorder.objects.recorder.exportWAV(function (blob) {
+            var url = (window.URL || window.webkitURL)
+                .createObjectURL(blob);
+                var storageRef = firebase.storage().ref(reference);
+                storageRef.put(blob);
+            reference = "Students/" + currentStudent.id + '/' + ano + '/' + mes + '/' + diaEscolhido;
+                firebase.database().ref(reference).set({
+                    'dia' : diaEscolhido,
+                    'review' : true
+                });
+                alert("Audio Enviado com sucesso!");
+            });       
+        }
     }
 }
