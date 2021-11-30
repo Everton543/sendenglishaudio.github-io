@@ -80,8 +80,8 @@ function getStudentsInfo(){
       let info = childSnapshot.val().info;
       studentsList[info.id] = new Student(info.name, info.id, info.newAudio);
       /*todo: 
-      / 2- Fazer com que a função dia click se comporte diferente
-      /    2.2 -  ao mandar o audio marcar que mandei a resposta
+      / 3- Ao abrir o dia que já foi enviado o audio, ou que já recebeu resposta do professor
+           fazer aparecer o audio do professor.
       / 
       */
     });
