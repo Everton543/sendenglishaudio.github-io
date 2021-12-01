@@ -97,8 +97,9 @@ firebase.auth().onAuthStateChanged(user => {
         document.getElementById("studentList").classList.remove("hide");
         getStudentsInfo();
       }else{
-      userCurrent = user;
-      colocarDiaOcupado(user.uid);
+        userCurrent = user;
+        colocarDiaOcupado(user.uid);
+        salvarNomeUsuario()
       }
     }
     else {
