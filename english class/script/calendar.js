@@ -287,10 +287,8 @@ function voltarMes(uid) {
  * do dia escolhido pelo cliente.
  **********************************************/
  function diaClick(dia, semana) {
-
     diaEscolhido = dia;
     aparecerRecorder();
-    salvarNomeUsuario();
 }
 
 /********************************************************
